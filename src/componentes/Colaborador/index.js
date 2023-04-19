@@ -1,43 +1,47 @@
-import './Colaborador.css'
+import { CgCloseR } from 'react-icons/cg'
+import { IoMdCloseCircleOutline } from 'react-icons/io'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+
+
+import './colaborador.css'
+
+const Colaborador = ({ colaborador, corDeFundo, aoDeletar, corDoIcone, aoFavoritar }) => {
+    const cor = { color: corDoIcone }
+    function favoritar() {
+        aoFavoritar(colaborador.id)
+    }
+
+    const propsfavorito = {
+        size: 25,
+        onClick: favoritar
+    }
 
 
 
-//Desta Forma fica Desestruturado - eu achei mais facil de entender o codigo assim
-const Colaborador = ({nome,imagem,cargo,corPrimaria}) =>{
- const css = { backgroundColor: corPrimaria}
-  return(
-    <div className='colaborador' >
-      <div className='cabecalho'style={css}>
-        <img src={imagem}alt={nome}/> 
-      </div>
-        <div className='rodape'>
-        <h4>{nome}</h4>
-        <h5>{cargo}</h5>
-      </div>
-    </div>
 
-  )
+    return (<div className="colaborador">
+        <CgCloseR
+            size={25}
+            className='deletar'
+            style={cor}
+            onClick={() => aoDeletar(colaborador.id)}
+        />
+        <div className="cabecalho" style={{ backgroundColor: corDeFundo }}>
+            <img src={colaborador.imagem} alt={colaborador.nome} />
+        </div>
+        <div className="rodape">
+            <h4>{colaborador.nome}</h4>
+            <h5>{colaborador.cargo}</h5>
+            <div className='favoritar'>
+                {colaborador.favorito
+                // {...propsfavorito} Esta eh a forma de passar um objeto como parametro, fazendo um SPREAD
+                    ? <AiFillHeart {...propsfavorito} color={corDeFundo} />
+                    : <AiOutlineHeart {...propsfavorito}/>
+                }
+            </div>
+        </div>
+    </div>)// alteracao de comiit
 
 }
-
-
-
-
-/* const Colaborador = (props) =>{
-  return(
-    <div className='colaborador'>
-      <div className='cabecalho'>
-        <img src={props.imagem}alt=''/> 
-      </div>
-      <div className='rodape'>
-        <h4>{props.nome}</h4>
-        <h5>{props.cargo}</h5>
-      </div>
-    </div>
-
-  )
-
-}
- */
 
 export default Colaborador
